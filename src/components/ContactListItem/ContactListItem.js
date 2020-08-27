@@ -21,17 +21,9 @@ let ContactListItem = ({ el, onDelItem, id }) => (
   </li>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    app: state.app,
-  };
-};
+const mapStateToProps = (state) => ({ app: state.app });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onDelItem: (value) => dispatch(appAction.itemsDel(value)),
-  };
-};
+const mapDispatchToProps = { onDelItem: appAction.itemsDel };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactListItem);
 
