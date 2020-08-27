@@ -48,18 +48,14 @@ class ContactForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    app: state.app,
-  };
-};
+const mapStateToProps = (state) => ({ app: state.app });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // onChangeFilter: (value) => dispatch(appAction.filter(value)),
-    onAddItem: (name, number) => dispatch(appAction.itemsAdd(name, number)),
-    // onDelItem: (value) => dispatch(appAction.itemsDel(value)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onAddItem: (name, number) => dispatch(appAction.itemsAdd(name, number)),
+//   };
+// };
+
+const mapDispatchToProps = { onAddItem: appAction.itemsAdd };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

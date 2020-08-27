@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-import { v4 as uuidv4 } from "uuid";
 import ContactList from "./ContactList/ContactList";
 import ContactForm from "./ContactForm/ContactForm";
 import Filter from "./Filter/Filter";
@@ -21,11 +20,11 @@ class App extends Component {
     localStorContacts && this.props.addItemLocalStor(localStorContacts);
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.props.items !== prevState.items) {
-  //     localStorage.setItem("items", JSON.stringify(this.props.items));
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (this.props.app.items !== prevProps.app.items) {
+      localStorage.setItem("items", JSON.stringify(this.props.app.items));
+    }
+  }
 
   changeIsAlready = (name) => {
     if (this.props.app.items.find((contact) => name === contact.name)) {
@@ -37,18 +36,12 @@ class App extends Component {
     return true;
   };
 
-  contactsForRenderAndFilter = () => {
-    const { items } = this.props.app;
-
-    const { filter } = this.props.app;
-
-    console.log(this.props.app);
-
-    return items.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()));
-  };
-
   render() {
-    let contactsArrayFiltered = this.contactsForRenderAndFilter();
+    const { items } = this.props.app;
+    const { filter } = this.props.app;
+    const filterLowerCase = filter.toLowerCase();
+
+    const contactsArrayFiltered = items.filter((contact) => contact.name.toLowerCase().includes(filterLowerCase));
 
     return (
       <>
@@ -72,8 +65,8 @@ class App extends Component {
 
           <ContactForm changeIsAlready={this.changeIsAlready} />
 
-          <CSSTransition in={this.props.app.items.length > 1} timeout={300} classNames={FilterAnimation} unmountOnExit>
-            <Filter handleChangeFilterREDUX={this.props.onChangeFilter} filter={this.props.app.filter} />
+          <CSSTransition in={items.length > 1} timeout={300} classNames={FilterAnimation} unmountOnExit>
+            <Filter />
           </CSSTransition>
 
           <ContactList contacts={contactsArrayFiltered} />
@@ -83,26 +76,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    app: state.app,
-  };
-};
+const mapStateToProps = (state) => ({ app: state.app });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addItemLocalStor: (value) => dispatch(appAction.addItemsFromLocalStor(value)),
-    onChangeFilter: (value) => dispatch(appAction.filter(value)),
-    onAddItem: (value) => dispatch(appAction.itemsAdd(value)),
+// const mapDispatchToProps = (dispatch) => ({ addItemLocalStor: (value) => dispatch(appAction.addItemsFromLocalStor(value)) });
 
-    onDelItem: (value) => dispatch(appAction.itemsDel(value)),
-  };
-};
-
-// const mapDispatchToprops = {
-//   onChangeFilter: appAction.filter,
-//   onAddItem: appAction.itemsAdd,
-//   onDelItem: appAction.itemsDel,
-// };
+let mapDispatchToProps = { addItemLocalStor: appAction.addItemsFromLocalStor };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
