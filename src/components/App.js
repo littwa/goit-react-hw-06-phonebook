@@ -78,8 +78,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({ app: state.app });
 
-// const mapDispatchToProps = (dispatch) => ({ addItemLocalStor: (value) => dispatch(appAction.addItemsFromLocalStor(value)) });
-
 let mapDispatchToProps = { addItemLocalStor: appAction.addItemsFromLocalStor };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
