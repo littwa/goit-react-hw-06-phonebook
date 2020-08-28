@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
-import ContactList from "./ContactList/ContactList";
-import ContactForm from "./ContactForm/ContactForm";
+import ContactList from "./ContactList";
+import ContactForm from "./ContactForm";
 import Filter from "./Filter/Filter";
-import IsAlreadyTrue from "./IsAlreadyTrue/IsAlreadyTrue";
+import IsAlreadyTrue from "./IsAlreadyTrue";
 import animation from "./Appanimation.module.css";
 import animationIsAlready from "./IsAlreadyTrue/isAlreadyTrueAnimation.module.css";
 import FilterAnimation from "./Filter/FilterAnimation.module.css";

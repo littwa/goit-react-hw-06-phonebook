@@ -6,12 +6,12 @@ import { connect } from "react-redux";
 
 let Filter = ({ filter, onChangeFilter }) => {
   return (
-    <section className={filterContainer}>
+    <form className={filterContainer}>
       <label className={filterLabel}>
         Find contacts by name
         <input className={filterInput} onChange={(e) => onChangeFilter(e.target.value)} value={filter} name="filter" type="text" autoComplete="off" />
       </label>
-    </section>
+    </form>
   );
 };
 

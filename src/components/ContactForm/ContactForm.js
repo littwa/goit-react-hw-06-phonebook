@@ -50,12 +50,6 @@ class ContactForm extends React.Component {
 
 const mapStateToProps = (state) => ({ app: state.app });
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onAddItem: (name, number) => dispatch(appAction.itemsAdd(name, number)),
-//   };
-// };
-
 const mapDispatchToProps = { onAddItem: appAction.itemsAdd };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
